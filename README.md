@@ -9,7 +9,7 @@ https://lucperkins.dev/blog/nix-channel/
 ## 利用方法
 
 ```
-nix-channel --add "https://github.com/hankei6km/test-nix-channel-simple/archive/v0.0.1.tar.gz" personal
+nix-channel --add "https://github.com/hankei6km/test-nix-channel-simple/archive/v0.2.0.tar.gz" personal
 nix-channel --update
 ```
 
