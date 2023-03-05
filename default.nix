@@ -24,6 +24,10 @@ let
       };
     };
 
+  fakePodmanDocker = pkgs.writeShellScriptBin "docker" ''
+    podman "''${@}"
+  '';
+
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
   # '';
@@ -32,6 +36,10 @@ let
     overlays = [
       (self: super: {
         inherit podmanComposeGit;
+      })
+      # これをビルドしようとすると Docker もインストールする。なぜ?
+      (self: super: {
+        inherit fakePodmanDocker;
       })
       # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
       # (self: super: { 
