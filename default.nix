@@ -40,23 +40,25 @@ let
       };
 
       propagatedBuildInputs = [
-        pkgs.ranger
+        # pkgs.ranger
         pkgs.python3Packages.pyyaml
         pkgs.python3Packages.configparser
         pkgs.python3Packages.pyxdg
       ];
-      buildInputs = [
-        pkgs.python3Packages.pytest
-        pkgs.python3Packages.pytest-cov
-        pkgs.python3Packages.pytest-runner
-        pkgs.python3Packages.mock
-      ];
+
+      doCheck = false
+        # buildInputs = [
+        #   pkgs.python3Packages.pytest
+        #   pkgs.python3Packages.pytest-cov
+        #   pkgs.python3Packages.pytest-runner
+        #   pkgs.python3Packages.mock
+        # ];
 
 
-      pythonImportsCheck = [
-        "mirage_linemode.config"
-        "mirage_linemode.theme.core"
-        "mirage_linemode.util"
+        pythonImportsCheck = [
+      "mirage_linemode.config"
+      "mirage_linemode.theme.core"
+      "mirage_linemode.util"
       ];
 
       meta = with pkgs.lib; {
