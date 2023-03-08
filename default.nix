@@ -39,8 +39,11 @@ let
         sha256 = "sha256-Hevq5AOvldmViOmy7h+fBRPKyafH0rjA15qJoOBbPqY=";
       };
 
-      propagatedBuildInputs = [
+      buildInputs = [
         pkgs.ranger
+      ];
+      propagatedBuildInputs = [
+        # pkgs.ranger
         pkgs.python3Packages.pyyaml
         pkgs.python3Packages.configparser
         pkgs.python3Packages.pyxdg
@@ -69,14 +72,6 @@ let
         maintainers = with maintainers; [ ];
       };
     };
-  propagatedBuildInputs = [ mirageLinemode ];
-  rangerWithPlugins = pkgs.ranger {
-    overlays = [
-      (self: super: {
-        inherit propagatedBuildInputs;
-      })
-    ];
-  };
 
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
@@ -92,7 +87,7 @@ let
         inherit fakePodmanDocker;
       })
       (self: super: {
-        inherit rangerWithPlugins;
+        inherit mirageLinemode;
       })
       # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
       # (self: super: { 
