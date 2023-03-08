@@ -30,7 +30,7 @@ let
 
   mirageLinemode = pkgs.python3Packages.buildPythonPackage
     rec {
-      pname = "mirage-linemode";
+      pname = "mirage_linemode";
       version = "0.1.1";
       format = "setuptools";
 
