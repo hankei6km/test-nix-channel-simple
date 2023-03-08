@@ -70,7 +70,7 @@ let
       };
     };
 
-  rangerWithPlugins = builtins.stdenv.mkDerivation
+  rangerWithPlugins = pkgs.stdenv.mkDerivation
     {
       name = "ranger-with-plugins";
       buildInputs = [
