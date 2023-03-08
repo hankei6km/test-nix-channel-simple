@@ -28,25 +28,55 @@ let
     podman "''${@}"
   '';
 
-  # hello2 = pkgs.writeShellScriptBin "hello1" ''
-  #   echo "Hello from the Nix channel overlay!"
-  # '';
+  mirageLinemode = pkgs.python3Packages.buildPythonPackage
+    rec {
+      pname = "mirage-linemode";
+      version = "0.1.1";
+      format = "setuptools";
 
-  pkgs = import sources.nixpkgs {
-    overlays = [
-      (self: super: {
-        inherit podmanComposeGit;
-      })
-      # これをビルドしようとすると Docker もインストールする。なぜ?
-      (self: super: {
-        inherit fakePodmanDocker;
-      })
-      # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
-      # (self: super: { 
-      #   inherit hello2;
-      # })
-    ];
+      src = fetchPypi {
+        inherit pname version;
+        sha256 = "sha256-Hevq5AOvldmViOmy7h+fBRPKyafH0rjA15qJoOBbPqY=";
+      };
+
+      propagatedBuildInputs = [
+        pkgs.python3Packages.PyYAML
+        pkgs.python3Packages.configparser
+        pkgs.python3Packages.pyxdg
+      ];
+
+      pythonImportsCheck = [ "mirage.linemode" ];
+
+      meta = with lib; {
+        description = "Customizable linemode plugin for ranger";
+        homepage = "https://github.com/hankei6km/mirage_linemode";
+        license = pkgs.lib.licenses.mit;
+        maintainers = with maintainers; [ ];
+      };
+    }
+
+    # hello2 = pkgs.writeShellScriptBin "hello1" ''
+    #   echo "Hello from the Nix channel overlay!"
+    # '';
+
+    pkgs = import sources.nixpkgs {
+  overlays = [
+  (self: super: {
+  inherit podmanComposeGit;
+  })
+  # これをビルドしようとすると Docker もインストールする。なぜ?
+  (self: super: {
+  inherit fakePodmanDocker;
+  })
+  (self: super: {
+  inherit mirageLinemode;
+  })
+  # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
+  # (self: super: { 
+  #   inherit hello2;
+  # })
+  ];
   };
 
-in
-pkgs
+  in
+  pkgs
