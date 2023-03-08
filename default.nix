@@ -34,7 +34,7 @@ let
       version = "0.1.1";
       format = "setuptools";
 
-      src = fetchPypi {
+      src = builtins.fetchPypi {
         inherit pname version;
         sha256 = "sha256-Hevq5AOvldmViOmy7h+fBRPKyafH0rjA15qJoOBbPqY=";
       };
@@ -47,7 +47,7 @@ let
 
       pythonImportsCheck = [ "mirage.linemode" ];
 
-      meta = with lib; {
+      meta = with pkgs.lib; {
         description = "Customizable linemode plugin for ranger";
         homepage = "https://github.com/hankei6km/mirage_linemode";
         license = pkgs.lib.licenses.mit;
