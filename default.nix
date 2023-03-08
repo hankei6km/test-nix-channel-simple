@@ -70,6 +70,16 @@ let
       };
     };
 
+  rangerWithPlugins = stdenv.mkDerivation
+    {
+      name = "ranger-with-plugins";
+      buildInputs = [
+        pkgs.ranger
+        mirageLinemode
+      ];
+    };
+
+
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
   # '';
@@ -84,7 +94,7 @@ let
         inherit fakePodmanDocker;
       })
       (self: super: {
-        inherit mirageLinemode;
+        inherit rangerWithPlugins;
       })
       # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
       # (self: super: { 
