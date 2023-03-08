@@ -45,6 +45,7 @@ let
         pkgs.python3Packages.configparser
         pkgs.python3Packages.pyxdg
         pkgs.python3Packages.pytest-runner
+        pkgs.python3Packages.setuptools
       ];
 
       doCheck = false;
