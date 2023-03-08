@@ -70,7 +70,7 @@ let
       };
     };
   propagatedBuildInputs = [ mirageLinemode ];
-  rangerWithPlugins = import sources.nixpkgs.ranger {
+  rangerWithPlugins = pkgs.ranger {
     overlays = [
       (self: super: {
         inherit propagatedBuildInputs;
