@@ -47,7 +47,7 @@ let
       ];
 
       pythonImportsCheck = [
-        "mirage_linemod.config"
+        "mirage_linemode.config"
       ];
 
       meta = with pkgs.lib; {
