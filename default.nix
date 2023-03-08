@@ -46,7 +46,9 @@ let
         pkgs.python3Packages.pytest-runner
       ];
 
-      pythonImportsCheck = [ "mirage.linemode" ];
+      pythonImportsCheck = [
+        "mirage_linemod.config"
+      ];
 
       meta = with pkgs.lib; {
         description = "Customizable linemode plugin for ranger";
