@@ -53,30 +53,30 @@ let
         license = pkgs.lib.licenses.mit;
         maintainers = with maintainers; [ ];
       };
-    }
+    };
 
-    # hello2 = pkgs.writeShellScriptBin "hello1" ''
-    #   echo "Hello from the Nix channel overlay!"
-    # '';
+  # hello2 = pkgs.writeShellScriptBin "hello1" ''
+  #   echo "Hello from the Nix channel overlay!"
+  # '';
 
-    pkgs = import sources.nixpkgs {
-  overlays = [
-  (self: super: {
-  inherit podmanComposeGit;
-  })
-  # これをビルドしようとすると Docker もインストールする。なぜ?
-  (self: super: {
-  inherit fakePodmanDocker;
-  })
-  (self: super: {
-  inherit mirageLinemode;
-  })
-  # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
-  # (self: super: { 
-  #   inherit hello2;
-  # })
-  ];
+  pkgs = import sources.nixpkgs {
+    overlays = [
+      (self: super: {
+        inherit podmanComposeGit;
+      })
+      # これをビルドしようとすると Docker もインストールする。なぜ?
+      (self: super: {
+        inherit fakePodmanDocker;
+      })
+      (self: super: {
+        inherit mirageLinemode;
+      })
+      # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
+      # (self: super: { 
+      #   inherit hello2;
+      # })
+    ];
   };
 
-  in
-  pkgs
+in
+pkgs
