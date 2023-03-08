@@ -43,6 +43,7 @@ let
         pkgs.python3Packages.pyyaml
         pkgs.python3Packages.configparser
         pkgs.python3Packages.pyxdg
+        pkgs.python3Packages.pytest-runner
       ];
 
       pythonImportsCheck = [ "mirage.linemode" ];
