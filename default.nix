@@ -34,7 +34,7 @@ let
       version = "0.1.1";
       format = "setuptools";
 
-      src = builtins.fetchPypi {
+      src = pkgs.python3Packages.fetchPypi {
         inherit pname version;
         sha256 = "sha256-Hevq5AOvldmViOmy7h+fBRPKyafH0rjA15qJoOBbPqY=";
       };
