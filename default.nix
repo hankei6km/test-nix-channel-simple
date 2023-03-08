@@ -40,6 +40,7 @@ let
       };
 
       propagatedBuildInputs = [
+        pkgs.ranger
         pkgs.python3Packages.pyyaml
         pkgs.python3Packages.configparser
         pkgs.python3Packages.pyxdg
