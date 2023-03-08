@@ -69,16 +69,14 @@ let
         maintainers = with maintainers; [ ];
       };
     };
-
-  rangerWithPlugins = pkgs.stdenv.mkDerivation
-    {
-      name = "ranger-with-plugins";
-      buildInputs = [
-        pkgs.ranger
-        mirageLinemode
-      ];
-    };
-
+  rangerWithPlugins = import sources.nixpkgs.ranger {
+    propagatedBuildInputs = [ pkgs.ranger mirageLinemode ];
+    overlays = [
+      (self: super: {
+        inherit propagatedBuildInputs;
+      })
+    ];
+  };
 
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
