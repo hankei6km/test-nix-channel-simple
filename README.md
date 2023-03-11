@@ -9,7 +9,7 @@ https://lucperkins.dev/blog/nix-channel/
 ## 利用方法
 
 ```
-nix-channel --add "https://github.com/hankei6km/test-nix-channel-simple/archive/v0.2.0.tar.gz" personal
+nix-channel --add "https://github.com/hankei6km/test-nix-channel-simple/archive/v0.3.0.tar.gz" personal
 nix-channel --update
 ```
 
@@ -34,3 +34,13 @@ nix-env -iA personal.fakePodmanDocker
 
 Nix では `podman-docker` パッケージが無いようだったので作成。
 `devcontainer feature test` サブコマンドでは `--docker-path` が使えないのでこれを利用する。
+
+### `fake-podman-script`
+
+```
+nix-env -iA personal.fakePodmanScript
+```
+
+- `compose` サブコマンドを疑似的にサポートする `podmann` スクリプト
+
+Dev Container 拡張機能が `podman compose version --short` を実行するようになったので作成。

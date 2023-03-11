@@ -28,6 +28,16 @@ let
     podman "''${@}"
   '';
 
+  fakePodmanScript = pkgs.writeShellScriptBin "podman" ''
+    if test "''${1}" = "compose" && command -v podman-compose > /dev/null ; then
+      shift
+      podman-compose "''${@}"
+      exit "''${?}"
+    fi
+    command -p podman "''${@}"
+  '';
+
+
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
   # '';
@@ -40,6 +50,9 @@ let
       # これをビルドしようとすると Docker もインストールする。なぜ?
       (self: super: {
         inherit fakePodmanDocker;
+      })
+      (self: super: {
+        inherit fakePodmanScript;
       })
       # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
       # (self: super: { 
