@@ -37,6 +37,25 @@ let
     command -p podman "''${@}"
   '';
 
+  podmanComposeFakeeVersionScript = pkgs.writeShellScriptBin "podman-compose-fake-version" ''
+    if test "''${1}" = "version"; then
+        /usr/local/bin/docker-compose "''${@}"
+    else
+        podman-compose "''${@}"
+    fi
+  '';
+
+  podmanComposeFakeeVersion = pkgs.stdenv.mkDerivation {
+    name = "podman-compose-fake-version";
+    buildInputs = [
+      podmanComposeGit
+      podmanComposeFakeeVersionScript
+    ];
+    buildCommand = ''
+      install -m555 -Dt $out/bin "$(command -v podman-compose)"
+      install -m555 -Dt $out/bin "$(command -v podman-compose-fake-version)"
+    '';
+  };
 
   # hello2 = pkgs.writeShellScriptBin "hello1" ''
   #   echo "Hello from the Nix channel overlay!"
@@ -53,6 +72,9 @@ let
       })
       (self: super: {
         inherit fakePodmanScript;
+      })
+      (self: super: {
+        inherit podmanComposeFakeeVersion;
       })
       # これをビルドしようとすると `nix-build '<personal>' -A hello2` のようになる。なぜ?
       # (self: super: { 
